@@ -2,7 +2,9 @@
 	<view>
 		<view class="accomplishmentBorder">
 			<view class="accomplishmentsAc">
-				<view class="accomplishmentsAcImage"></view>
+				<view v-if="completion" class="accomplishmentsAcImage"></view>
+				<view v-if="!completion & item.Achieved" class="accomplishmentsAcButton" @click="clickAcButton">按钮</view>
+				<view v-if="!completion & !item.Achieved" class="accomplishmentsAcData">待完成</view>
 			</view>
 			<view class="accomplishmentContentHeading">{{item.title}}
 			</view>
@@ -24,10 +26,21 @@
 		},
 		data() {
 			return {
-				}
-			},
+				completion: uni.getStorageSync('accomplishmentToDoB'+this.item.id) || false
+			}
+		},
+		mounted() {
+		},
+		methods:{
+			clickAcButton(){
+				this.completion=true
+				uni.setStorage({
+					key: 'accomplishmentToDoB'+this.item.id,
+					data: this.completion,
+				})
+			}
 		}
-				
+	}		
 </script>
 
 <style>
@@ -55,8 +68,20 @@
 		position: absolute;
 		display: flex;
 		justify-content: center;
-		align-content: center;
+		align-items: center;
 	}
+	.accomplishmentsAcButton{
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	.accomplishmentsAcData{
+		position: absolute;
+		/* left: 50%;
+		top: 50%;
+		transform: translateY(-50%); */
+	}
+	
 	.accomplishmentsAcImage{
 		position: absolute;
 		background-image: url(../static/accomplishmentIcon.png);

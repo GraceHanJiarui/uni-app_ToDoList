@@ -1,11 +1,18 @@
 <template>
 	<view class="breakDownListItem">
 		<!-- <checkbox value="cb" v-model:checked="todoObj.done" ></checkbox> -->
-		<label :checked="todoObj.done" @click="handleChecked(todoObj.id)">	
-			<view :class="todoObj.done ?'checkedButton':'uncheckedButton'"></view>
-			<text :class="todoObj.done ?'textDFinished':'textD'">{{todoObj.title}}</text>
+			<view v-if="!isEdit">
+				<label :checked="todoObj.done" @click="handleChecked(todoObj.id)">	
+				<view :class="todoObj.done ?'checkedButton':'uncheckedButton'"></view>
+				<text :class="todoObj.done ?'textDFinished':'textD'" style="font-size: 32rpx;">{{todoObj.title}}</text>
+				</label>
+				<uni-icons v-if="!todoObj.done" type="clear" size="20px" color="#919ec8" @click="deleteItem(todoObj.id)" @touchend.stop style="float: right; "></uni-icons>
+				<uni-icons v-if="!todoObj.done" type="compose" size="20px" color="#919ec8" @click="editItem(todoObj)" style="float: right;"></uni-icons>
+			</view>
+			<input focus="true" v-if="isEdit" type="text" :value="todoObj.title" @blur="handleBlur($event)"/>
+		
 			<!-- <checkbox  style="display: none;"></checkbox> -->
-		</label>
+		
 <!-- 		<label>
 			<button @click="handleDelete(todoObj.id)" style="display: none;">删除</button>
 			<view class="deleteButton"></view>
@@ -15,17 +22,25 @@
 
 <script>
 	export default {
-		props:['todoObj','checkToDo','deleteToDo'],
+		props:['todoObj','checkToDo'],
 		data() {
 			return {
+				isEdit:false
 			}
 		},
 		methods:{
 			handleChecked(id){
 				this.checkToDo(id)
 			},
-			handleDelete(id){
-				this.deleteToDo(id)
+			deleteItem(id){
+				uni.$emit('deleteToDo',{toDoId:id})
+			},
+			editItem(){
+				this.isEdit=true;
+			},
+			handleBlur(e){
+				this.isEdit=false
+				this.todoObj.title=e.target.value
 			}
 		}
 	}
@@ -64,6 +79,6 @@
 	.deleteButton{
 		width: 50px;
 		height: 50px;
-		background-image: url(@/static/R-C.jpg);
+		/* background-image: url(@/static/R-C.jpg); */
 	}
 </style>

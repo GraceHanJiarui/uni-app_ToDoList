@@ -1,10 +1,11 @@
 <template>
-	<view>
-	<view class="labelBox">
-		<view v-show="!anim" v-if="et.importanceLevel & et.emergenceLevel" class="boxIE" @click="enterToDetailPage('center')" @longpress="longpress" @touchend="endTouch" style="text-shadow: 1px 1px 5px #347df3;">{{et.title}}</view>
-		<view v-show="!anim" v-if="!et.importanceLevel & et.emergenceLevel" class="boxnIE" @click="enterToDetailPage('center')" @longpress="longpress" @touchend="endTouch" style="text-shadow: 1px 1px 5px #347df3;">{{et.title}}</view>
-		<view v-show="!anim" v-if="et.importanceLevel & !et.emergenceLevel" class="boxInE" @click="enterToDetailPage('center')" @longpress="longpress" @touchend="endTouch" style="text-shadow: 1px 1px 5px #347df3;">{{et.title}}</view>
-		<view v-show="!anim" v-if="!et.importanceLevel & !et.emergenceLevel" class="boxnInE" @click="enterToDetailPage('center')" @longpress="longpress" @touchend="endTouch" style="text-shadow: 1px 1px 5px #347df3;">{{et.title}}</view>
+	<view class="labelBox" v-if="!this.et.todoFinished">
+		<view style="color: rgba(250, 245, 207, 0.9);">
+		<view v-show="!anim" v-if="et.importanceLevel & et.emergenceLevel" class="boxIE" @click="enterToDetailPage('center')" @longpress="longpress" @touchend="endTouch" :style="{boxShadow:(this.et.overdue? '1px 3px 5px #ffa6a6': '1px 3px 5px #a7c3ff')}">{{et.title}}</view>
+		<view v-show="!anim" v-if="!et.importanceLevel & et.emergenceLevel" class="boxnIE" @click="enterToDetailPage('center')" @longpress="longpress" @touchend="endTouch" :style="{boxShadow:(this.et.overdue? '1px 3px 5px #ffa6a6': '1px 3px 5px #a7c3ff')}">{{et.title}}</view>
+		<view v-show="!anim" v-if="et.importanceLevel & !et.emergenceLevel" class="boxInE" @click="enterToDetailPage('center')" @longpress="longpress" @touchend="endTouch" :style="{boxShadow:(this.et.overdue? '1px 3px 5px #ffa6a6': '1px 3px 5px #a7c3ff')}">{{et.title}}</view>
+		<view v-show="!anim" v-if="!et.importanceLevel & !et.emergenceLevel" class="boxnInE" @click="enterToDetailPage('center')" @longpress="longpress" @touchend="endTouch" :style="{boxShadow:(this.et.overdue? '1px 3px 5px #ffa6a6': '1px 3px 5px #a7c3ff')}">{{et.title}}</view>
+		</view>
 		<view class="bubbleContainer" style="perspective: 100px;">
 			<view :class="{'bubble anim1':anim}"></view>
 			<view :class="{'bubble anim2':anim}"></view>
@@ -12,7 +13,7 @@
 			<view :class="{'bubble anim4':anim}"></view>
 			<!-- <view :class="{'bubble1 anim5':anim}"></view> -->
 		</view>
-		<uni-popup ref="popup" id="popup" type="center" background-color="#fff" @maskClick='transformTitleData'>
+		<uni-popup ref="popupL" id="popuplong" type="center" background-color="#fff" @maskClick='transformTitleData'>
 			<view class="detailPage" @touchstart.stop @touchend.stop>
 				
 				<!-- 事件标题 待添加图标、字数限制 -->
@@ -28,34 +29,38 @@
 						<!-- 紧急/重要选择器（日历+星星） -->
 						<view class="inputImportanceEmergence">
 							<view class="dateSelect">
-							<uni-datetime-picker v-model="et.single" @change="confirm">
+							<uni-datetime-picker v-model="et.single" @change="confirm" :hide-second="true">
 								<uni-icons type="calendar" size="55rpx" color="#919ec8" style="position: relative; top: 6rpx;"></uni-icons>	
 									<text class='emergenceSelect'>
-									{{et.selectedYear}}-{{et.selectedMonth}}-{{et.selectedDate}}</text>
-							</uni-datetime-picker>
+									{{et.selectedYear}}-{{et.selectedMonth}}-{{et.selectedDate}}
+									{{et.selectedHour}}{{et.selectedMin}}{{et.selectedSec}}</text>
+								</uni-datetime-picker>
 							</view>
 							
-							<label>
-								<uni-icons type="star-filled" size="60rpx" :color="this.et.importanceLevel ? '#697b9e' : '#c9dfe0'" @click="selectImportance"></uni-icons>
+							<label style="border: #c3cdd7 solid 1px; margin: -1px 0px -1px 0px; background-color: #f0f8fe;">
+								<uni-icons type="star-filled" size="65rpx" :color="this.et.importanceLevel ? '#697b9e' : '#c9dfe0'" @click="selectImportance"></uni-icons>
 							</label>
 						</view>
 						
 						<!-- 分解任务项填写 -->
 						<view class="inputBreakDownItemList">
-							<breakDownListHead @addItem="addToDo"></breakDownListHead>
-							<breakDownList :todos="todos" :checkToDo="checkToDo" :deleteToDo="deleteToDo"></breakDownList>
+							<breakDownListHead @addItem="addToDo" style="background-color: #c8dddd;"></breakDownListHead>
+							<breakDownList :todos="et.todos" :checkToDo="checkToDo"></breakDownList>
 						</view>
-
-						<view class="concentrationTimeStat">
-							已完成专注：25分钟
-						</view>
-						
-						<!-- 定时器 -->
-						<timer :valueT="this.et.valueT" @timeChange="timeChange"></timer>
-						<uni-icons type="right" size="60rpx" color="#919ec8" @click="startTimeCounting"></uni-icons>
 					</view>
 				</view>
 				
+				<!-- 间隔空白 -->
+				<view style="display: flex;flex: 0.5; border:#6688b3 solid;border-width: 1px 0px 1px 0px; background-color:#f7ffff">
+					<!-- <span style="position: relative; background-color: #2C405A;max-height: 5px;min-height: 2px;: 10rpx;width: 540rpx; top:50%; transform: translateY(-50%);"></span> -->
+				</view>
+				
+				<view class="concentrationTimeStat">
+					已完成专注：25分钟
+				</view>
+				<!-- 定时器 -->
+				<timer :valueT="this.et.valueT" :showIcon='true' @timeChange="timeChange" @stc="startTimeCounting"></timer>
+							
 				<!-- 备注 待添加icon、字数限制、换行功能 -->
 				<input class="inputNote" type="text" placeholder="备注" v-model="et.comment"/>
 				
@@ -66,12 +71,11 @@
 				
 				<!-- 添加闹钟 功能待完善！ -->
 				<span style="position: absolute; height: 80rpx; width: 80rpx; margin: 10rpx; right: 0px; top: 0px;">
-					<uni-icons type="notification-filled" size="80rpx" color="#c7b882" @click="addAlert"></uni-icons>
+					<uni-icons type="notification-filled" size="80rpx" :color="alarm ? '#f5e2a1' : '#c7b882'" @click="addAlert" ></uni-icons>
 				</span>
 
 			</view>
 		</uni-popup>
-	</view>
 	</view>
 </template>
 
@@ -87,10 +91,11 @@
 				type:Object,
 				default:{}
 			}
-			},
+		},
+		name:"longPress",
 		data() {
 			return {
-				countDownStart: false,
+				// countDownStart: false,
 				anim:false,
 				ifLongTap: false,
 				single:this.et.single,
@@ -103,7 +108,12 @@
 				yearNow: new Date().getFullYear(),
 				monthNow: new Date().getMonth()+1,
 				dateNow: new Date().getDate(),
+				alarm:false
 			}
+		},
+		mounted() {
+			uni.$on("deleteToDo", this.deleteToDo)
+			this.transformTitleData()
 		},
 		components:{
 			breakDownListHead,
@@ -114,16 +124,16 @@
 		watch:{
 			et:function(newVal,oldVal){
 				this.formData=newVal;
-				console.log(this);
+				// console.log(this);
 			}
 		},
 		methods:{
 		//短按展开，长按2.3秒完成本事项功能
 		enterToDetailPage(type){
-			console.log("点按");
+			// console.log("点按");
 			this.type=type;
-			this.$refs.popup.open();
-			console.log(this.et.exp)
+			this.$refs.popupL.open();
+			// console.log(this.et.exp)
 		},
 		longpress(){
 			this.ifLongTap = true;
@@ -132,31 +142,51 @@
 				_this.startTouch();
 			},1300);
 		},
+		// 长按后的反应 包括改变经验值/增加代币/泡泡特效
 		startTouch(){
 			if(this.ifLongTap){
-				this.countDownStart=true;
+				// this.countDownStart=true;
 				this.anim=true;
 				uni.$emit('changeSliderValue',this.et.exp);
+				if(this.et.overdue==false){
+					this.$store.commit('ADDTOKENNUMBER',2*this.et.exp);
+					console.log("this task 没超时")
+				}
+				else{
+					this.$store.commit('ADDTOKENNUMBER',this.et.exp);
+					console.log("this task 超时了")
+				}
+				this.$store.commit('ADDTASKNUMBER',1);
+				// console.log(this.$store.state.tokenNumber)
 				setTimeout(()=>{
-					this.$emit('itemComplete',this.et.id)
+					// this.$emit('itemComplete',this.et.id)
+					this.et.todoFinished=true
 				},1700);
 				
 			}
 		},
 		endTouch(){
 			this.ifLongTap=false;
-			this.countDownStart=false;
+			// this.countDownStart=false;
 		},
 		
 		//若emergence或importance值发生改变则从本box中删除此元素并找到对应box重新添加该对象 功能待完善！！
 		transformTitleData(){
 			//以后再改 当标题为空时警告标题不能为空
 			if(!this.et.title.trim()) return
+			if(this.yearNow===this.et.selectedYear & this.monthNow===this.et.selectedMonth & this.et.selectedDate<this.dateNow | 
+			this.yearNow>this.et.selectedYear | this.yearNow===this.et.selectedYear & this.monthNow>this.et.selectedMonth){
+				this.et.overdue=true
+				this.et.emergenceLevel=true
+				// console.log("overdue task")
+			}
 			if(this.yearNow===this.et.selectedYear & this.monthNow===this.et.selectedMonth & (this.et.selectedDate-this.dateNow)<3){
 				this.et.emergenceLevel=true
+				// this.et.overdue=false
 			}
 			else{
 				this.et.emergenceLevel=false
+				// this.et.overdue=false
 			}
 			
 			//若emergence或importance值发生改变则从本box中删除此元素并找到对应box重新添加该对象
@@ -191,19 +221,18 @@
 			this.$refs.calendar.open()
 		},
 		confirm(e){
-			console.log(e)
+			// console.log(e,"eeeeee")
 			this.et.single=e
 			this.et.selectedDate=Number(e.slice(8,10))
 			this.et.selectedMonth=Number(e.slice(5,7))
-			if(e.length>12){
+			this.et.selectedYear=Number(e.slice(0,4))
+			if(e.length>=12 & (e.slice(11,14)!="00:" | e.slice(14,17)!="00")){
 				this.et.selectedHour=e.slice(11,14)
 				this.et.selectedMin=e.slice(14,17)
-				this.et.selectedSec=e.slice(17,20)
 			}
 			else{
 				this.et.selectedHour=''
 				this.et.selectedMin=''
-				this.et.selectedSec=''
 			}
 		},
 		
@@ -219,13 +248,20 @@
 		},
 		
 		//待加分解任务项的delete图标以及联立此功能
-		deleteToDo(id){
-			console.log(id)
-			this.todos=this.todos.filter((todo)=>{	
-				return todo.id!==id
-			})
+		deleteToDo(e){
+			for (var i = 0; i < this.todos.length; i++) {
+				if(this.todos[i].id==e.toDoId){
+					console.log(this.todos[i])
+					this.todos.splice(i,i+1)
+				}}
+				// console.log(this.todos)
+				// this.todos=this.todos.filter((x)=>{
+				// 	return x.id!==e.toDoId
+				// })
+				// }
+			// this.todos.remove()
+			
 		},
-		
 		timeChange(valueT){
 			this.et.valueT=valueT
 		},
@@ -244,13 +280,13 @@
 		
 		//删除本事项
 		deleteItem(){
-			console.log("deleteItem"),
+			// console.log("deleteItem"),
 			this.$emit('itemComplete',this.et.id)
 		},
 		
 		//添加提醒闹钟 功能待完善！！
 		addAlert(){
-			console.log("addAlert")
+			this.alarm=!this.alarm
 		}
 	},
 	}
@@ -260,6 +296,9 @@
 	.labelBox{
 		display: flex;
 		flex-wrap: wrap;
+		/* color: rgba(250, 245, 207, 0.9); */
+		/* color: #e1eeff; */
+		/* color: #eaf0f0; */
 	}
 	
 	.boxnIE{
@@ -268,7 +307,7 @@
 		border-radius: 5px;
 		margin:15rpx 10rpx 3rpx 10rpx;
 		background-color: #6e83a0;
-		box-shadow: 1px 3px 5px #a7c3ff;
+		text-shadow: 1px 1px 5px #347df3;
 	}
 	.boxIE{
 		font-size: 34rpx;
@@ -276,15 +315,15 @@
 		border-radius: 5px;
 		margin:15rpx 10rpx 3rpx 10rpx;
 		background-color: #4e70a0;
-		box-shadow: 1px 3px 5px #a7c3ff;
+		text-shadow: 1px 1px 5px #347df3;
 	}
 	.boxnInE{
 		font-size: 34rpx;
 		padding: 16rpx;
 		border-radius: 5px;
 		margin:15rpx 10rpx 3rpx 10rpx;
-		background-color: #e1eeff;
-		box-shadow: 1px 3px 5px #a7c3ff;
+		background-color: #adbede;
+		text-shadow: 1px 1px 5px #347df3;
 	}
 	.boxInE{
 		font-size: 34rpx;
@@ -292,7 +331,7 @@
 		border-radius: 5px;
 		margin:15rpx 10rpx 3rpx 10rpx;
 		background-color: #80a2d2;
-		box-shadow: 1px 3px 5px #a7c3ff;
+		text-shadow: 1px 1px 5px #347df3;
 	}
 	.bubbleContainer{
 		height: 17px;
@@ -325,27 +364,29 @@
 		animation: bubble4 1.7s ease-in-out forwards;
 	}
 	.detailPage{
-		height: 930rpx;
+		height: 900rpx;
 		width: 540rpx;
 		display: flex;
 		flex-direction: column;
 	}
 	.inputHeader{
 		background-color: #f7ffff;
-		border-radius: 5px;
-		/* border-top: 1px solid #4b7a81;
-		border-left: 1px solid #4b7a81;
-		border-right: 1px solid #4b7a81; */
+		border-top-right-radius: 5px;
+		border-top-left-radius: 5px;
 		color: #b6baba;
-		flex:2
+		flex: 2.5;
+		border-bottom: #6688b3 solid 1px;
 	}
 	.detailPageBody{
 		display: flex;
-		flex:8;
+		flex:7;
 		
 	}
 	.ExpSlider{
 		background-color: #eef9fd;
+		border: #ffc2c2 solid 1px;
+		border-top: 1px solid #c3cdd7;
+		margin: -1px 0px -1px 0px;
 		flex: 1;
 		justify-content: center;
 		align-items: center;
@@ -354,16 +395,14 @@
 		display: flex;
 		flex-direction: column;
 		flex:4.4;
+		background-color: #ffffff;
 	}
 	
 	.inputImportanceEmergence{
 		display: flex;
 		flex-direction: row;
-		/* align-content: center; */
+		align-content: center;
 		justify-content: center;
-		/* padding:10rpx; */
-		background-color: #f0f8fe;
-		border: 1px solid #c3cdd7;
 	}
 /* 	.inputImportanceEmergence label{
 		flex:1;
@@ -373,7 +412,13 @@
 		border-radius: 10px;
 		text-align: center;
 	} */
-
+	.dateSelect {
+		background-color: #f0f8fe;
+		border: 1px solid #c3cdd7;
+		margin: -1px;
+		flex: 2;
+	}
+	
 	.emergenceSelect{
 		/* flex:1; */
 		text-align: center;
@@ -381,10 +426,7 @@
 		padding:10rpx;
 	}
 	.inputBreakDownItemList{
-		flex:2;
-		border:1px dashed #2C405A;
-		margin-right: 2px;
-		border-radius: 10px;
+		flex: 4;
 	}
 	.concentrationTimeStat{
 		font-size: 20rpx;
@@ -392,31 +434,12 @@
 		background-color: #E6FFFF;
 	}
 
-	.item {
-		height: 20rpx;
-		align-items: center;
-		justify-content: center;
-		text-align: center;
-	}
 	.inputNote{
 		flex:2.85;
-		background-color: #fff;
+		background-color: #f7ffff;
 		border-radius: 0 0 5px 5px;
 	}
-	.finalButton{
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-around;
-	}
-	.finalButton view{
-		border-radius: 5px;
-		padding: 5px;
-		padding-left: 43px;
-		padding-right: 43px;
-		border: 1px solid #6688b3;
-		margin-bottom: 10px;
-	}
-	
+
 	@keyframes bubble1{
 		from{
 			transform: translate3d(0,0,0);

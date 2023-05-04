@@ -15,14 +15,12 @@
 		},
 		methods:{
 			addToList(){
-				console.log(this.$refs)
 				if(!this.title.trim()) return 
 				const todoObj={id:Date.now(),title:this.title, done:false}
 				this.$emit("addItem",todoObj)
 				this.title=''
 				this.isFocus=false
 				this.$nextTick(()=>{
-					console.log(this.isFocus)
 					this.isFocus=true
 				}
 				)
@@ -35,6 +33,5 @@
 	.breakDownListHeader{
 		border: 1px dotted #2C405A;
 		border-radius: 10px;
-		background-color: #c8dddd;
 	}
 </style>

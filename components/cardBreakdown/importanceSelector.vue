@@ -2,13 +2,13 @@
 	<view class="inputImportanceEmergence">
 		<view class="dateSelect">
 		<uni-datetime-picker v-model="single" @change="confirm">
-			<uni-icons type="calendar" size="55rpx" color="#919ec8" style="position: relative; top: 6rpx;"></uni-icons>
+			<uni-icons type="calendar" size="23.5px" color="#919ec8" style="position: relative; top: 2.6px;"></uni-icons>
 			<text class='emergenceSelect'>
 			{{selectedYear}}-{{selectedMonth}}-{{selectedDate}} {{selectedHour}}{{selectedMin}}{{selectedSec}}</text>
 		</uni-datetime-picker>
 		</view>
 		<label>
-			<uni-icons type="star-filled" size="60rpx" :color="this.importancet ? '#697b9e' : '#c9dfe0'" @click="selectImportance"></uni-icons>
+			<uni-icons type="star-filled" size="25.5px" :color="this.importancet ? '#697b9e' : '#c9dfe0'" @click="selectImportance"></uni-icons>
 		</label>
 	</view>
 	
@@ -31,7 +31,7 @@
 		},
 		methods:{
 			confirm(e){
-				console.log(e)
+				// console.log(e)
 				this.single=e
 				this.selectedDate=Number(e.slice(8,10))
 				this.selectedMonth=Number(e.slice(5,7))
@@ -60,7 +60,7 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
-		padding:10rpx;
+		padding:4.3px;
 	}
 	.dateSelect{
 		flex:1;
@@ -71,8 +71,8 @@
 	.emergenceSelect{
 		/* flex:1; */
 		text-align: center;
-		font-size: 36rpx;
-		line-height: 36rpx;
-		padding:10rpx;
+		font-size: 15px;
+		line-height: 15px;
+		padding:4.3px;
 	}
 </style>

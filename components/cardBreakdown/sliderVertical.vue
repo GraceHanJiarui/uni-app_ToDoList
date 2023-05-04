@@ -2,8 +2,8 @@
 	<view class="content">
 		<view class="">
 			<!-- 背景 -->
-			<view style="position:absolute; top: 150rpx;">{{VE}}</view>
-			<view class="" style="background: linear-gradient(to top, #9dd5ff, #ff9793) ; border-radius: 20rpx; width: 40rpx; height: 477rpx; position:absolute; top: 190rpx; left: 30rpx;">
+			<view style="position:absolute; top: 150rpx; left: 39rpx;font-size: 14px;color: #e2b1a7;">{{VE}}</view>
+			<view class="" style="background: linear-gradient(to top, #9dd5ff, #ff9793) ; border-radius: 20rpx; width: 40rpx; height: 350rpx; position:absolute; top: 200rpx; left: 30rpx;">
 				<!-- 滑动条 -->
 				<view class="" style="background-color: #ffffff; width: 40rpx; height: 0rpx; border-radius: 20rpx 20rpx 0rpx 0rpx; " :style="{height:pageY+'px'}"></view>
 				<view class="expButton" @touchmove="touchmove" @touchend="touchend" :style="{top:pageY-2+'px'}">
@@ -20,8 +20,8 @@
 	export default {
 		data() {
 			const scH=uni.getSystemInfoSync().screenHeight
-			const toppageY=((scH-50)-900*this.wpx)/2+190*this.wpx
-			const barHeightpx=this.wpx*447
+			const toppageY=((scH-50)-uni.upx2px(900))/2+uni.upx2px(200)
+			const barHeightpx=uni.upx2px(320)
 			const oneUnit=barHeightpx/9
 			const pageY=barHeightpx-this.valueExp*oneUnit
 			
