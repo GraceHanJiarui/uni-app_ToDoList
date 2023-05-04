@@ -4,12 +4,14 @@
 			<view class="badgeWall">徽章墙</view>
 			
 			<uni-collapse accordion>
+				<uni-collapse-item title="初识ToDo" :show-animation="true" :open="true">
+					<accomplishment v-for="(item,index) in accomplishmentToDo" :key="index" :item="item"></accomplishment>
+				</uni-collapse-item>
+				
 				<uni-collapse-item class="accomplishmentBox" title="隐藏任务":show-animation="true">
 					<accomplishment v-for="(item,index) in accomplishmentGood" :key="index" :item="item"></accomplishment>
 				</uni-collapse-item>
-				<uni-collapse-item title="初识ToDo" :show-animation="true">
-					<accomplishment v-for="(item,index) in accomplishmentToDo" :key="index" :item="item"></accomplishment>
-				</uni-collapse-item>
+			
 				
 				<uni-collapse-item title="手风琴效果">
 					<text>折叠内容</text>
@@ -47,12 +49,12 @@
 		data() {
 			return{
 				accomplishmentToDo:[
-					{id:"001", title:"四象限法则", ct:"论重要和紧急对待办的规划作用（在四象限中分别放入待办）"},
-					{id:"002", title:"日常？还是待办？", ct:"论日常和待办对随机性的区分作用（日常和待办中分别放入事项）"},
-					{id:"003", title:"追根究底", ct:"论了解完整使用方式和原理对操作的帮助作用（看完指导手册）"},
-					{id:"004", title:"向着目标与梦想", ct:"论具象化目标和需求对行动力的促进作用（在代币兑换大奖处填写1000代币时想要的奖励）"},
-					{id:"005", title:"个人的一小步", ct:"论踏出第一步对达成目标的拉近作用（完成设定的第一个事项）" },
-					{id:"006", title:"自我奖励", ct:"论即时正反馈对完成日常事项的督促作用（在代币商店买一颗糖）"},
+					{id:1001, title:"四象限法则", ct:"论重要和紧急对待办的规划作用（在四象限中分别放入待办）", Achieved:false},
+					{id:1002, title:"日常？还是待办？", ct:"论日常和待办对随机性的区分作用（日常和待办中分别放入事项）", Achieved:false},
+					{id:1003, title:"追根究底", ct:"论了解完整使用方式和原理对操作的帮助作用（看完指导手册）", Achieved:false},
+					{id:1004, title:"向着目标与梦想", ct:"论具象化目标和需求对行动力的促进作用（在代币兑换大奖处填写1000代币时想要的奖励）", Achieved:false},
+					{id:1005, title:"个人的一小步", ct:"论踏出第一步对达成目标的拉近作用（完成设定的第一个事项）", Achieved:false},
+					{id:1006, title:"自我奖励", ct:"论即时正反馈对完成日常事项的督促作用（在代币商店买一颗糖）", Achieved:false},
 					],
 				accomplishmentGood:[
 					//闹钟相关
@@ -76,7 +78,41 @@
 		components:{
 			accomplishment
 		},
+		mounted() {
+			uni.$on('completeAccomplishment',this.completeAccomplishment),
+			uni.getStorage({
+				key:'accomplishmentToDo',
+				success:(e)=>{
+					this.accomplishmentToDo=e.data;
+				},
+			})
+		},
+		watch:{
+			accomplishmentToDo:{
+				deep:true,
+				handler(value){
+					uni.setStorage({
+						key: 'accomplishmentToDo',
+						data: value,
+						success: function () {
+							console.log('successAc');
+						},
+						fail: function () {
+							console.log('failAc');
+						}
+					})
+				}
+			},
+		},
 		methods:{
+			completeAccomplishment(data){
+				for(let i=0; i<this.accomplishmentToDo.length; i++){
+					if(data.Acid==this.accomplishmentToDo[i].id){
+						this.accomplishmentToDo[i].Achieved=true
+						console.log('this achievement is completed',this.accomplishmentToDo[i])
+					}
+				}
+			}
 		// 	passData(){
 		// 		uni.setStorage({
 		// 			key:"id",
