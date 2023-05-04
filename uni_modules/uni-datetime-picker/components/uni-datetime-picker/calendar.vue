@@ -10,7 +10,7 @@
 				</view>
 				<picker mode="date" :value="date" fields="month" @change="bindDateChange">
 					<text
-						class="uni-calendar__header-text">{{ (nowDate.year||'') + ' 年 ' + ( nowDate.month||'') +' 月'}}</text>
+						class="uni-calendar__header-text">{{ (nowDate.year||'') + yearText + ( nowDate.month||'') + monthText}}</text>
 				</picker>
 				<view v-if="right" class="uni-calendar__header-btn-box" @click.stop="next">
 					<view class="uni-calendar__header-btn uni-calendar--right"></view>
@@ -31,7 +31,7 @@
 						<text class="uni-calendar__weeks-day-text">{{SUNText}}</text>
 					</view>
 					<view class="uni-calendar__weeks-day">
-						<text class="uni-calendar__weeks-day-text">{{monText}}</text>
+						<text class="uni-calendar__weeks-day-text">{{MONText}}</text>
 					</view>
 					<view class="uni-calendar__weeks-day">
 						<text class="uni-calendar__weeks-day-text">{{TUEText}}</text>
@@ -86,7 +86,7 @@
 				<!-- <view class="uni-calendar__header-btn-box">
 					<text class="uni-calendar__button-text uni-calendar--fixed-width">{{okText}}</text>
 				</view> -->
-				<view class="uni-datetime-picker--btn" @click="confirm">确认</view>
+				<view class="uni-datetime-picker--btn" @click="confirm">{{confirmText}}</view>
 			</view>
 		</view>
 	</view>
@@ -332,7 +332,13 @@
 			okText() {
 				return t("uni-datetime-picker.ok")
 			},
-			monText() {
+			yearText() {
+				return t("uni-datetime-picker.year")
+			},
+			monthText() {
+				return t("uni-datetime-picker.month")
+			},
+			MONText() {
 				return t("uni-calender.MON")
 			},
 			TUEText() {
@@ -352,6 +358,9 @@
 			},
 			SUNText() {
 				return t("uni-calender.SUN")
+			},
+			confirmText() {
+				return t("uni-calender.confirm")
 			},
 		},
 		created() {
@@ -622,15 +631,15 @@
 	}
 
 	.uni-calendar--fixed {
-		position: fixed;
-		bottom: calc(var(--window-bottom));
-		left: 0;
-		right: 0;
+		position: absolute;
+		bottom: calc((var(--window-bottom) - (100vh - 900rpx) / 2);
+		left: - (750rpx - 540rpx) / 2;
+		right: - (750rpx - 540rpx) / 2;
 		transition-property: transform;
 		transition-duration: 0.3s;
 		transform: translateY(460px);
 		/* #ifndef APP-NVUE */
-		z-index: 99;
+		z-index: 1100;
 		/* #endif */
 	}
 
@@ -644,7 +653,7 @@
 
 	.uni-calendar__content-mobile {
 		border-top-left-radius: 10px;
-		// border-top-right-radius: 10px;
+		border-top-right-radius: 10px;
 		box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.1);
 	}
 
@@ -887,7 +896,7 @@
 		background-color: #007aff;
 		color: #fff;
 		font-size: 16px;
-		letter-spacing: 5px;
+		letter-spacing: 2px;
 	}
 
 	/* #ifndef APP-NVUE */

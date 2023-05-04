@@ -73,6 +73,7 @@
 </script>
 <style lang="scss" >
 	.uni-popup-message {
+		z-index: 1200;
 		/* #ifndef APP-NVUE */
 		display: flex;
 		/* #endif */
