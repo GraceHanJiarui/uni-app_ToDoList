@@ -3,7 +3,7 @@ This is a To-Do list cross-platform mobile application develop with uni-app, a f
 ## Table of Contents
 - [About Uni-App and Vue.js](#functionalities) <br>
 - &emsp;[uni-app](#uni-app) <br>
-- &emsp;[vue.js](#vue.js) <br>
+- &emsp;[vue.js](#vuejs) <br>
 - [Functionalities of this App](#functionalities) <br>
 &emsp;[categorizing tasks](#categorizing-tasks) <br>
 &emsp;[setting priorities](#setting-priorities) <br>
@@ -30,4 +30,4 @@ It requires familarity with HTML, CSS, and JavaScript, and ensures modularity in
 
 ## Functionalities of this App
 ### Categorizing Tasks
-![]()
+![Image]()
