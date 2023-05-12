@@ -39,8 +39,10 @@ On the main page, tasks are able to be categorize into four quadrants according 
 ![Image](https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/main_page.png)
 
 ### Setting priorities
-Clicking the button to add a new to-do. Select the star 
+Clicking the button to add a new to-do. <br>
+Select the star to define whether the following task is important. <br>
 ![Image](https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/to_do_card.png)
+Select the due date of the task. Automatically, if the deadline is within 3 days from today, that task will be set as emergent. <br>
 ![Image](https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/select_time.png)
 
 ### Difficulty Levels
