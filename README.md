@@ -11,6 +11,7 @@ This is a To-Do list cross-platform mobile application develop with uni-app, a f
 &emsp;[difficulty levels](#difficulty-levels) <br>
 &emsp;[pomodoro clock](#pomodoro-clock) <br>
 &emsp;[calendar](#calendar) <br>
+&emsp;[daily tasks](#daiy-tasks) <br>
 &emsp;[token store](#token-store) <br>
 - [Project Design](#project-design) <br>
 &emsp;[Color Select](#color-select) <br>
@@ -40,27 +41,47 @@ Tasks are added when users click the button on the left bottom on the main page.
 <div align=center>
 <img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/main_page.png" style="width:200px; height=350px;">
 </div>
+The task is a 'to-do' by default, and by clicking on the slide button in the upper left corner, this task item can be changed to a daily task item. <br>
+![Image](https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/to_do_card.png)
+![Image](https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/to_do_card_routine.png)
 ### Categorizing Tasks
 On the main page, tasks are able to be categorize into four quadrants according to their emergence and importance level. Tasks in different groups will be labelled in different colors.
 <div align=center>
  <img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/main_page_with_tasks.png" style="width:200px; height=350px;"> 
 </div>
-The importance level is determined by whether star on the top left of the 
 
 ### Setting priorities
 Clicking the button to add a new to-do. <br>
 Select the star to define whether the following task is important. <br>
-![Image](https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/to_do_card.png)
+<div align=center>
+<img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/to_do_card.png" style="width:200px; height=350px;">
+</div>
 Select the due date of the task. Automatically, if the deadline is within 3 days from today, that task will be set as emergent. <br>
-![Image](https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/select_time.png)
+<div align=center>
+<img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/select_time.png" style="width:200px; height=350px;">
+</div>
 
 ### Difficulty Levels
-![Image](https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/task_complete.png)
-
-### Pomodoro Clock
+The vertical slider on the left allows you to select a value for 'how important or difficult this task is for you to complete', and the experience points and tokens obtained after completing the task will be awarded based on this value.
+<div align=center>
+<img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/task_complete.png" style="width:200px; height=350px;">
+</div>
 
 ### Calendar
-![Image](https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/calendar.png)
+A quick swipe down the screen will bring up the calendar.
+The calendar will sync the tasks that have been set and show every task that are waiting for completion.
+<div align=center>
+<img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/calendar.png" style="width:200px; height=350px;">
+</div>
+
+### Daily Tasks
+
+<div align=center>
+<img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/routine_page.png" style="width:200px; height=350px;">
+</div>
+<div align=center>
+<img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/routine_page_task_complete.png" style="width:200px; height=350px;">
+</div>
 
 ### Token Store
 ![Image](https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/rewarding_page.png)
@@ -79,7 +100,7 @@ This project aims at a convenient and easy-to-use to-do list application that mo
 - I noticed that without feedback, it's easy for users to put off daily tasks until the next day, with no motivation to complete them so I wanted to emulate the mechanics of everyday quests in games to attract users to complete everything before deadline. <br>
 #### Why automatically set emergence level?
 - According to psychological theory, making decisions is always energy-consuming. 
-- 很多人也很难定义什么样的任务算紧急，所以干脆减少用户做决策 <br>
+- After asking friends for advice, I found it difficult to define what tasks are urgent for many people, so categorizing tasks is automatically completed, reducing the user's decision making <br>
 #### Difficult levels
 - quantify work to reduce anxiety
 - get more rewards for more work done. <br>
