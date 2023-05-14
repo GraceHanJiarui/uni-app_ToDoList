@@ -1,10 +1,11 @@
 # HBuilder_ToDoList
-This is a To-Do list cross-platform mobile application develop with uni-app, a framework for developing all front-end applications using HTML, CSS, Javascript and Vue.js.
+This is a To-Do list cross-platform mobile application develop with uni-app, a framework for developing all front-end applications using HTML, CSS, Javascript and Vue.js. It's Implemented with responsive design using vue providing better performance and a smoother user experience, and used Vuex for back-end data management to centralize the application's state management.
 ## Table of Contents
 - [About Uni-App and Vue.js](#about-uni-app-and-vuejs) <br>
 - &emsp;[uni-app](#uni-app) <br>
 - &emsp;[vue.js](#vuejs) <br>
 - [Functionalities of this App](#functionalities-of-this-app) <br>
+&emsp;[add tasks](#add-tasks) <br>
 &emsp;[categorizing tasks](#categorizing-tasks) <br>
 &emsp;[setting priorities](#setting-priorities) <br>
 &emsp;[difficulty levels](#difficulty-levels) <br>
@@ -34,9 +35,17 @@ The DCloud company has 9 million developers, millions of applications, 1.2 billi
 It requires familarity with HTML, CSS, and JavaScript, and ensures modularity in the development process.
 
 ## Functionalities of this App
+### Add Tasks
+Tasks are added when users click the button on the left bottom on the main page. A card for task's detail settings will pop out. 
+<div align=center>
+<img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/main_page.png" style="width:200px; height=350px;">
+</div>
 ### Categorizing Tasks
 On the main page, tasks are able to be categorize into four quadrants according to their emergence and importance level. Tasks in different groups will be labelled in different colors.
-![Image](https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/main_page.png)
+<div align=center>
+ <img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/main_page_with_tasks.png" style="width:200px; height=350px;"> 
+</div>
+The importance level is determined by whether star on the top left of the 
 
 ### Setting priorities
 Clicking the button to add a new to-do. <br>
