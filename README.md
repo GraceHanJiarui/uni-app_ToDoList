@@ -9,9 +9,8 @@ This is a To-Do list cross-platform mobile application develop with uni-app, a f
 &emsp;[categorizing tasks](#categorizing-tasks) <br>
 &emsp;[setting priorities](#setting-priorities) <br>
 &emsp;[difficulty levels](#difficulty-levels) <br>
-&emsp;[pomodoro clock](#pomodoro-clock) <br>
 &emsp;[calendar](#calendar) <br>
-&emsp;[daily tasks](#daiy-tasks) <br>
+&emsp;[daily tasks](#daily-tasks) <br>
 &emsp;[token store](#token-store) <br>
 - [Project Design](#project-design) <br>
 &emsp;[Color Select](#color-select) <br>
@@ -42,13 +41,17 @@ Tasks are added when users click the button on the left bottom on the main page.
 <img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/main_page.png" style="width:200px; height=350px;">
 </div>
 The task is a 'to-do' by default, and by clicking on the slide button in the upper left corner, this task item can be changed to a daily task item. <br>
-![Image](https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/to_do_card.png)
-![Image](https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/to_do_card_routine.png)
+<div align=center>
+<img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/to_do_card.png" style="width:200px; height=350px;">
+ <img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/to_do_card_routine.png" style="width:200px; height=350px;">
+</div>
+
 ### Categorizing Tasks
 On the main page, tasks are able to be categorize into four quadrants according to their emergence and importance level. Tasks in different groups will be labelled in different colors.
 <div align=center>
  <img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/main_page_with_tasks.png" style="width:200px; height=350px;"> 
 </div>
+
 
 ### Setting priorities
 Clicking the button to add a new to-do. <br>
@@ -56,9 +59,13 @@ Select the star to define whether the following task is important. <br>
 <div align=center>
 <img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/to_do_card.png" style="width:200px; height=350px;">
 </div>
-Select the due date of the task. Automatically, if the deadline is within 3 days from today, that task will be set as emergent. <br>
+Select the due date of theA red shadow appears under the border to remind the user that the experience and tokens earned after completing the task will also decrease task. Automatically, if the deadline is within 3 days from today, that task will be set as emergent. <br>
 <div align=center>
 <img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/select_time.png" style="width:200px; height=350px;">
+</div>
+When the task is overdue, the red shadow will appear under the border to remind the user, and the experience and tokens earned after completing the task will decrease following that.
+<div align=center>
+ <img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/overdue_tasks.png" style="width:200px; height=350px;"> 
 </div>
 
 ### Difficulty Levels
@@ -75,16 +82,22 @@ The calendar will sync the tasks that have been set and show every task that are
 </div>
 
 ### Daily Tasks
-
+Those routine tasks will separately appear here, sorted according to frequency.
+For example, here's a daily tasks.
 <div align=center>
 <img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/routine_page.png" style="width:200px; height=350px;">
 </div>
+As long as all of the daily tasks are completed, an extra 10 token will be awarded to user to give them a positive incentive to finish all the tasks within deadline.
 <div align=center>
 <img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/routine_page_task_complete.png" style="width:200px; height=350px;">
 </div>
 
 ### Token Store
-![Image](https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/rewarding_page.png)
+In the token store, users can use token to buy items or props. This quantifies self-reward and gives positive feedback to the user.
+I haven't drawn the image of those objects though. I'll put it up when I finish.
+<div align=center>
+<img src="https://github.com/GraceHanJiarui/HBuilder_ToDoList/blob/main/to-do-image/rewarding_page.png" style="width:200px; height=350px;">
+</div>
 
 ## Project Design
 This project aims at a convenient and easy-to-use to-do list application that motivates users to keep using.<br>
@@ -107,7 +120,6 @@ This project aims at a convenient and easy-to-use to-do list application that mo
 #### Token Store
 - positive feedback mechanism gives motivation
 - strike a proper balance between work and rest <br>
-
 ## Future Functions
 ### Data Statistics
 ### Achievement System
